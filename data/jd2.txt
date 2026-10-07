@@ -1,0 +1,31 @@
+About the Role
+
+We are looking for a passionate AI/ML Software Engineer to join our product team and help build intelligent, scalable, and production-ready machine learning solutions. You will work closely with product managers, designers, and backend engineers to integrate AI capabilities into core product features and drive data-driven innovation.
+
+
+
+
+
+Key Responsibilities
+
+Design, develop, and deploy machine learning models into production environments
+Build and maintain scalable ML pipelines for data processing, training, and inference
+Collaborate with cross-functional teams to identify AI-driven product opportunities
+Translate business requirements into ML solutions and technical implementations
+Optimize model performance, accuracy, and latency for real-time applications
+Integrate AI/ML models with APIs and backend systems
+Monitor model performance and implement continuous improvement strategies
+Ensure best practices in data handling, model versioning, and reproducibility
+Stay updated with the latest advancements in AI/ML and apply them to product innovation
+
+
+Required Skills & Qualifications
+
+Bachelor’s engineering degree in Computer Science, AI, Data Science, or related field
+Strong programming skills in Python (experience with Java/Go is a plus)
+Hands-on experience with ML frameworks such as TensorFlow, PyTorch, or Scikit-learn
+Solid understanding of machine learning algorithms and statistical concepts
+Experience in building and deploying ML models in production
+Familiarity with REST APIs, microservices architecture, and cloud platforms (AWS/GCP/Azure)
+Experience with data processing tools (Pandas, NumPy, Spark, etc.)
+Knowledge of version control systems like Git 

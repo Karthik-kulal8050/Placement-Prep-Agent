@@ -1,0 +1,37 @@
+About the job
+About The Opportunity
+
+A fast-growing technology firm in the AI & SaaS sector, we build and deploy enterprise-grade machine learning and generative AI solutions that automate workflows, enhance customer intelligence, and drive decision-making at scale. Our engineers work across the full AI lifecycle—from data ingestion and model training to deployment, monitoring, and continuous improvement—using modern tooling and cloud-native architectures to deliver real business value.
+
+Role & Responsibilities
+
+Design, train, and deploy scalable ML models using frameworks like TensorFlow, PyTorch, and scikit-learn for production environments.
+Develop and optimize AI-powered pipelines for classification, regression, NLP, or recommendation systems based on business use cases.
+Collaborate with data scientists and software engineers to productionize models using MLOps practices on cloud platforms (AWS/Azure/GCP).
+Integrate AI models into enterprise applications via REST/gRPC APIs and ensure low-latency, high-availability performance.
+Monitor model drift, implement retraining workflows, and contribute to model explainability and fairness initiatives.
+Write clean, maintainable code and document AI systems for scalability, compliance, and team knowledge sharing.
+
+Skills & Qualifications
+
+Must-Have
+Python
+TensorFlow
+PyTorch
+scikit-learn
+MLflow
+Docker
+Git
+REST API
+Preferred
+LangChain
+FastAPI
+Azure ML
+
+Benefits & Culture Highlights
+
+Opportunity to own high-impact AI projects from concept to production.
+Collaborative, fast-paced engineering culture with mentorship from senior AI leads.
+On-site role in India with modern infrastructure and innovation-focused work environment.
+
+Skills: scikit-learn,ml,python,docker,git,tensorflow,pytorch

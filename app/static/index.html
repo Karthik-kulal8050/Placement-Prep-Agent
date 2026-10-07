@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Placement Prep Agent</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --bg:#0f1117; --panel:#171a23; --border:#2a2e3a; --text:#e8e9ed; --muted:#8b8fa3; --accent:#6366f1; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--text); padding:30px; max-width:700px; margin:0 auto; }
+  h1 { font-size:20px; }
+  label { display:block; margin-top:16px; margin-bottom:6px; font-size:13px; color:var(--muted); }
+  input[type=file], textarea { width:100%; padding:10px; border-radius:8px; border:1px solid var(--border); background:var(--panel); color:var(--text); font-size:14px; }
+  textarea { min-height:150px; resize:vertical; }
+  button { margin-top:16px; background:var(--accent); color:white; border:none; padding:12px 20px; border-radius:8px; cursor:pointer; font-weight:600; }
+  .result { margin-top:24px; background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:18px; display:none; }
+  .fit { font-size:28px; font-weight:700; color:var(--accent); }
+  .section { margin-top:14px; }
+  .section h3 { font-size:13px; color:var(--muted); margin-bottom:6px; text-transform:uppercase; }
+  .pill { display:inline-block; background:#1e2230; padding:4px 10px; border-radius:20px; font-size:12px; margin:2px; }
+  .loading { color:var(--muted); font-size:13px; margin-top:10px; display:none; }
+</style>
+</head>
+<body>
+
+<h1>🎯 Placement Prep Agent</h1>
+<p style="color:var(--muted); font-size:14px;">Upload your resume and paste a job description to get a gap analysis.</p>
+
+<label>Resume (PDF)</label>
+<input type="file" id="resumeFile" accept=".pdf">
+
+<label>Job Description</label>
+<textarea id="jdText" placeholder="Paste the job description here..."></textarea>
+
+<button onclick="analyze()">Analyze</button>
+<div class="loading" id="loading">Analyzing... (this may take 10-20 seconds)</div>
+
+<div class="result" id="result">
+  <div class="fit" id="fitPercent"></div>
+  <div id="summary" style="margin-top:8px;"></div>
+
+  <div class="section">
+    <h3>✅ Matched Skills</h3>
+    <div id="matched"></div>
+  </div>
+  <div class="section">
+    <h3>⚠️ Gaps</h3>
+    <div id="missing"></div>
+  </div>
+  <div class="section">
+    <h3>🎯 Top Priority</h3>
+    <div id="priority"></div>
+  </div>
+  <div class="section">
+    <h3>📚 Resource</h3>
+    <div id="resource"></div>
+  </div>
+  <div class="section">
+    <h3>💡 Notes</h3>
+    <div id="notes"></div>
+  </div>
+</div>
+
+<script>
+async function analyze() {
+  const file = document.getElementById("resumeFile").files[0];
+  const jd = document.getElementById("jdText").value.trim();
+  if (!file || !jd) return alert("Please upload a resume and paste a job description.");
+
+  document.getElementById("loading").style.display = "block";
+  document.getElementById("result").style.display = "none";
+
+  const formData = new FormData();
+  formData.append("resume", file);
+
+  const params = new URLSearchParams({ jd_text: jd, question: "Are any missing skills commonly tested in interviews? Search if useful." });
+
+  const res = await fetch(`/analyze?${params}`, { method: "POST", body: formData });
+  const data = await res.json();
+
+  document.getElementById("loading").style.display = "none";
+
+  if (data.error) {
+    alert(data.error);
+    return;
+  }
+
+  document.getElementById("fitPercent").textContent = data.overall_fit_percent + "% Fit";
+  document.getElementById("summary").textContent = data.summary;
+  document.getElementById("matched").innerHTML = (data.matched_skills || []).map(s => `<span class="pill">${s}</span>`).join("");
+  document.getElementById("missing").innerHTML = (data.missing_skills || []).map(s => `<span class="pill">${s}</span>`).join("");
+  document.getElementById("priority").textContent = data.top_priority_to_learn || "—";
+  document.getElementById("resource").innerHTML = data.learning_resource ? `<a href="${data.learning_resource}" target="_blank" style="color:var(--accent)">${data.learning_resource}</a>` : "—";
+  document.getElementById("notes").textContent = data.additional_notes || "—";
+
+  document.getElementById("result").style.display = "block";
+}
+</script>
+</body>
+</html>

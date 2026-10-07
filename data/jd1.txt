@@ -1,0 +1,21 @@
+We are looking for exceptional ML/NLP engineers to join our team. We are working on fundamental problems in LLM based code-generation, document understanding, context synthesis and LLM based agents. Our team consists of experts from companies like Glean, Apple, Rubrik, Google and Meta.
+
+What you will do
+
+Build workflows/agentic pipelines for complex analytical workloads.
+
+Design evaluation framework and carry out evaluations of our query processing engine.
+
+Work closely with customers and founders to define the product and engineering roadmap.
+
+Shape up the engineering culture and tech stack for the company.
+
+You have
+
+Strong analytical skills and proven ability to work with hard NLP problems.
+
+Background in search/retrieval, LLMs, and evaluation pipelines is plus.
+
+Experience working in startup/fast paced teams is highly desirable.
+
+Bachelor's or Master's degree in Computer Science or related field.
