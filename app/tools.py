@@ -1,37 +1,34 @@
 from ddgs import DDGS
 
 
+def _search(query, max_results):
+    """Search with one retry. Returns a list of results, or [] if the search failed."""
+    for attempt in range(2):
+        try:
+            with DDGS(timeout=8) as ddgs:
+                return list(ddgs.text(query, max_results=max_results))
+        except Exception as e:
+            print(f"[search failed, attempt {attempt + 1}]: {e}")
+    return []
+
+
 def search_web(query, max_results=3):
-    """Search the web and return a few short results."""
-    try:
-        with DDGS() as ddgs:
-            results = list(ddgs.text(query, max_results=max_results))
-        if not results:
-            return "No results found for this query."
-        formatted = []
-        for r in results:
-            formatted.append(f"- {r['title']}: {r['body'][:200]}")
-        return "\n".join(formatted)
-    except Exception as e:
-        return f"Search temporarily unavailable ({str(e)}). Proceed with the information you already have."
+    results = _search(query, max_results)
+    if not results:
+        return "Search is unavailable right now. Continue using only the resume and job description."
+    return "\n".join(f"- {r['title']}: {r['body'][:200]}" for r in results)
 
 
 def find_learning_resource(skill):
-    """Return a reliable way to start learning a skill, favoring stable platforms over possibly-dead deep links."""
-    with DDGS() as ddgs:
-        results = list(ddgs.text(f"best free course {skill}", max_results=3))
-
-    # Prefer well-known, stable platforms if they appear in results
-    stable_domains = ["coursera.org", "youtube.com", "freecodecamp.org", "aws.amazon.com",
-                       "cloud.google.com", "docs.python.org", "huggingface.co", "kaggle.com"]
-
+    results = _search(f"best free course {skill}", 3)
+    stable = ["coursera.org", "youtube.com", "freecodecamp.org", "aws.amazon.com",
+              "cloud.google.com", "huggingface.co", "kaggle.com"]
     for r in results:
-        if any(domain in r["href"] for domain in stable_domains):
+        if any(d in r["href"] for d in stable):
             return f"{r['title']}: {r['href']}"
+    q = skill.replace(" ", "+")
+    return f"Search for current resources: https://www.google.com/search?q=free+course+{q}"
 
-    # Fallback: a guaranteed-stable search link instead of a specific article
-    query = skill.replace(" ", "+")
-    return f"Search for current resources: https://www.google.com/search?q=free+course+{query}"
 
 TOOLS_SCHEMA = [
     {
